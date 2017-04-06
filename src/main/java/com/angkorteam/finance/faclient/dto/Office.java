@@ -14,13 +14,15 @@ public class Office implements Serializable {
 
     private String nameDecorated;
 
-    private String externalId;
-
     private List<Integer> openingDate;
 
     private String hierarchy;
 
-    private List<Office> allowedParents;
+    private String externalId;
+
+    private Long parentId;
+
+    private String parentName;
 
     public Long getId() {
         return id;
@@ -46,14 +48,6 @@ public class Office implements Serializable {
         this.nameDecorated = nameDecorated;
     }
 
-    public String getExternalId() {
-        return externalId;
-    }
-
-    public void setExternalId(String externalId) {
-        this.externalId = externalId;
-    }
-
     public List<Integer> getOpeningDate() {
         return openingDate;
     }
@@ -66,15 +60,31 @@ public class Office implements Serializable {
         return hierarchy;
     }
 
+    public String getExternalId() {
+        return externalId;
+    }
+
+    public void setExternalId(String externalId) {
+        this.externalId = externalId;
+    }
+
+    public Long getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(Long parentId) {
+        this.parentId = parentId;
+    }
+
+    public String getParentName() {
+        return parentName;
+    }
+
+    public void setParentName(String parentName) {
+        this.parentName = parentName;
+    }
+
     public void setHierarchy(String hierarchy) {
         this.hierarchy = hierarchy;
-    }
-
-    public List<Office> getAllowedParents() {
-        return allowedParents;
-    }
-
-    public void setAllowedParents(List<Office> allowedParents) {
-        this.allowedParents = allowedParents;
     }
 }

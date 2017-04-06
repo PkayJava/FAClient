@@ -27,9 +27,9 @@ public class Hook implements Serializable {
 
     private List<Integer> updatedAt;
 
-    private List<HookEvent> events;
+    private List<Event> events;
 
-    private List<HookConfig> config;
+    private List<Config> config;
 
     public String getName() {
         return name;
@@ -63,11 +63,11 @@ public class Hook implements Serializable {
         this.templateId = templateId;
     }
 
-    public List<HookEvent> getEvents() {
+    public List<Event> getEvents() {
         return events;
     }
 
-    public void setEvents(List<HookEvent> events) {
+    public void setEvents(List<Event> events) {
         this.events = events;
     }
 
@@ -79,11 +79,11 @@ public class Hook implements Serializable {
         this.id = id;
     }
 
-    public List<HookConfig> getConfig() {
+    public List<Config> getConfig() {
         return config;
     }
 
-    public void setConfig(List<HookConfig> config) {
+    public void setConfig(List<Config> config) {
         this.config = config;
     }
 
@@ -110,4 +110,53 @@ public class Hook implements Serializable {
     public void setUpdatedAt(List<Integer> updatedAt) {
         this.updatedAt = updatedAt;
     }
+
+    public static class Event implements Serializable {
+
+        private String actionName;
+
+        private String entityName;
+
+        public String getActionName() {
+            return actionName;
+        }
+
+        public void setActionName(String actionName) {
+            this.actionName = actionName;
+        }
+
+        public String getEntityName() {
+            return entityName;
+        }
+
+        public void setEntityName(String entityName) {
+            this.entityName = entityName;
+        }
+
+    }
+
+    public static class Config implements Serializable {
+
+        private String fieldName;
+
+        private String fieldValue;
+
+        public String getFieldName() {
+            return fieldName;
+        }
+
+        public void setFieldName(String fieldName) {
+            this.fieldName = fieldName;
+        }
+
+        public String getFieldValue() {
+            return fieldValue;
+        }
+
+        public void setFieldValue(String fieldValue) {
+            this.fieldValue = fieldValue;
+        }
+
+    }
+
 }

@@ -15,6 +15,16 @@ public class Configuration implements Serializable {
 
     private Long id;
 
+    private boolean trapDoor;
+
+    public boolean isTrapDoor() {
+        return trapDoor;
+    }
+
+    public void setTrapDoor(boolean trapDoor) {
+        this.trapDoor = trapDoor;
+    }
+
     public String getName() {
         return name;
     }

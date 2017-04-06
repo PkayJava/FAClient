@@ -7,7 +7,7 @@ import java.io.Serializable;
  */
 public class OfficeCreate implements Serializable {
 
-    private Long parentId;
+    private long parentId;
 
     private String name;
 
@@ -19,11 +19,11 @@ public class OfficeCreate implements Serializable {
 
     private String openingDate;
 
-    public Long getParentId() {
+    public long getParentId() {
         return parentId;
     }
 
-    public void setParentId(Long parentId) {
+    public void setParentId(long parentId) {
         this.parentId = parentId;
     }
 

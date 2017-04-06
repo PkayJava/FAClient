@@ -25,6 +25,12 @@ public class Audit implements Serializable {
 
     private String clientName;
 
+    private Long clientId;
+
+    private String url;
+
+    private Long loanId;
+
     private String checker;
 
     private Long checkedOnDate;

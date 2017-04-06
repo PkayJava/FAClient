@@ -11,9 +11,29 @@ public class CodeValue implements Serializable {
 
     private String name;
 
+    private Integer position;
+
     private String description;
 
-    private Integer position;
+    private boolean mandatory;
+
+    private boolean active;
+
+    public boolean isMandatory() {
+        return mandatory;
+    }
+
+    public void setMandatory(boolean mandatory) {
+        this.mandatory = mandatory;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
 
     public String getName() {
         return name;

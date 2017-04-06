@@ -47,4 +47,51 @@ public class AuditSearchTemplate implements Serializable {
     public void setProcessingResults(List<ProcessingResult> processingResults) {
         this.processingResults = processingResults;
     }
+
+    public static class AppUser implements Serializable {
+
+        private Long id;
+
+        private String username;
+
+        public Long getId() {
+            return id;
+        }
+
+        public void setId(Long id) {
+            this.id = id;
+        }
+
+        public String getUsername() {
+            return username;
+        }
+
+        public void setUsername(String username) {
+            this.username = username;
+        }
+    }
+
+    public static class ProcessingResult implements Serializable {
+
+        private Long id;
+
+        private String processingResult;
+
+        public Long getId() {
+            return id;
+        }
+
+        public void setId(Long id) {
+            this.id = id;
+        }
+
+        public String getProcessingResult() {
+            return processingResult;
+        }
+
+        public void setProcessingResult(String processingResult) {
+            this.processingResult = processingResult;
+        }
+    }
+
 }

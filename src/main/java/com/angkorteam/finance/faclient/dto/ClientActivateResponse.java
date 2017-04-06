@@ -3,11 +3,13 @@ package com.angkorteam.finance.faclient.dto;
 import java.io.Serializable;
 
 /**
- * Created by socheatkhauv on 3/29/17.
+ * Created by socheatkhauv on 4/6/17.
  */
-public class OfficeCreateResponse implements Serializable {
+public class ClientActivateResponse implements Serializable {
 
     private Long officeId;
+
+    private Long clientId;
 
     private Long resourceId;
 
@@ -17,6 +19,14 @@ public class OfficeCreateResponse implements Serializable {
 
     public void setOfficeId(Long officeId) {
         this.officeId = officeId;
+    }
+
+    public Long getClientId() {
+        return clientId;
+    }
+
+    public void setClientId(Long clientId) {
+        this.clientId = clientId;
     }
 
     public Long getResourceId() {
