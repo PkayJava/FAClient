@@ -1,6 +1,6 @@
 package com.angkorteam.finance.faclient;
 
-import com.angkorteam.finance.faclient.dto.*;
+import com.angkorteam.finance.faclient.dto.system.*;
 import retrofit2.Call;
 import retrofit2.http.*;
 

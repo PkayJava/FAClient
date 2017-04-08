@@ -1,6 +1,6 @@
 package com.angkorteam.finance.faclient;
 
-import com.angkorteam.finance.faclient.dto.*;
+import com.angkorteam.finance.faclient.dto.client.*;
 import retrofit2.Call;
 import retrofit2.http.*;
 
@@ -201,6 +201,16 @@ public interface ClientService {
     @PUT("api/v1/client/{id}/addresses?type={addressTypeId}")
     Call<ClientAddressUpdate> clientAddressUpdate(@Path("id") long clientId, @Path("addressTypeId") long addressTypeId, @Body ClientAddressUpdate clientAddress);
 
+
+    /**
+     * List Field Configuration
+     *
+     * @param entity
+     * @return
+     */
+    @GET("api/v1/fieldconfiguration/{entity}")
+    Call<List<FieldConfiguration>> fieldConfigurationList(@Path("entity") String entity);
+
     /**
      * Delete a Client
      */
@@ -229,5 +239,5 @@ public interface ClientService {
      * List Client
      */
     @GET("api/v1/clients")
-    Call<ClientListResponse> clientList();
+    Call<ClientListResponse> clientList(@Query("offset") long offset, @Query("limit") long limit);
 }

@@ -1,6 +1,6 @@
 package com.angkorteam.finance.faclient.interceptor;
 
-import com.angkorteam.finance.faclient.dto.Authentication;
+import com.angkorteam.finance.faclient.dto.system.Authentication;
 import com.google.gson.Gson;
 import okhttp3.*;
 
