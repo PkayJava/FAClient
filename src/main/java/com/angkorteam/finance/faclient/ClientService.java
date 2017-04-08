@@ -4,6 +4,8 @@ import com.angkorteam.finance.faclient.dto.*;
 import retrofit2.Call;
 import retrofit2.http.*;
 
+import java.util.List;
+
 /**
  * Created by socheatkhauv on 4/6/17.
  */
@@ -158,6 +160,46 @@ public interface ClientService {
      */
     @POST("api/v1/clients/{id}?command=proposeAndAcceptTransfer")
     Call<ClientProposeAndAcceptTransferResponse> clientProposeAndAcceptTransfer(@Path("id") long id, @Body ClientProposeAndAcceptTransfer client);
+
+    /**
+     * List Client Account
+     *
+     * @param clientId
+     * @return
+     */
+    @GET("api/v1/clients/{id}/accounts")
+    Call<ClientAccountResponse> clientAccountList(@Path("id") long clientId);
+
+    /**
+     * Create a Client Address
+     *
+     * @param clientId
+     * @param addressTypeId
+     * @param clientAddress
+     * @return
+     */
+    @POST("api/v1/client/{id}/addresses?type={addressTypeId}")
+    Call<ClientAddressCreateResponse> clientAddressCreate(@Path("id") long clientId, @Path("addressTypeId") long addressTypeId, @Body ClientAddressCreate clientAddress);
+
+    /**
+     * List Client Address
+     *
+     * @param id
+     * @return
+     */
+    @GET("api/v1/client/{id}/addresses")
+    Call<List<ClientAddress>> clientAddressList(@Path("id") long id);
+
+    /**
+     * Update a Client Address
+     *
+     * @param clientId
+     * @param addressTypeId
+     * @param clientAddress
+     * @return
+     */
+    @PUT("api/v1/client/{id}/addresses?type={addressTypeId}")
+    Call<ClientAddressUpdate> clientAddressUpdate(@Path("id") long clientId, @Path("addressTypeId") long addressTypeId, @Body ClientAddressUpdate clientAddress);
 
     /**
      * Delete a Client
