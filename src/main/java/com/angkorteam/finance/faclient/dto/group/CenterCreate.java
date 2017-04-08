@@ -6,17 +6,17 @@ import java.util.List;
 /**
  * Created by socheatkhauv on 4/8/17.
  */
-public class GroupCreate implements Serializable {
+public class CenterCreate implements Serializable {
 
     private String activationDate;
 
     private boolean active;
 
-    private List<Long> clientMembers;
-
     private String dateFormat;
 
     private String externalId;
+
+    private List<Long> groupMembers;
 
     private String locale;
 
@@ -44,14 +44,6 @@ public class GroupCreate implements Serializable {
         this.active = active;
     }
 
-    public List<Long> getClientMembers() {
-        return clientMembers;
-    }
-
-    public void setClientMembers(List<Long> clientMembers) {
-        this.clientMembers = clientMembers;
-    }
-
     public String getDateFormat() {
         return dateFormat;
     }
@@ -66,6 +58,14 @@ public class GroupCreate implements Serializable {
 
     public void setExternalId(String externalId) {
         this.externalId = externalId;
+    }
+
+    public List<Long> getGroupMembers() {
+        return groupMembers;
+    }
+
+    public void setGroupMembers(List<Long> groupMembers) {
+        this.groupMembers = groupMembers;
     }
 
     public String getLocale() {

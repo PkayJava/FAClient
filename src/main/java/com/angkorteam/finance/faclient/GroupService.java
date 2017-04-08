@@ -21,5 +21,7 @@ public interface GroupService {
     @PUT("api/v1/groups/{id}")
     Call<GroupUpdateResponse> groupUpdate(@Path("id") long id, @Body GroupUpdate group);
 
+    @POST("api/v1/centers")
+    Call<CenterCreateResponse> centerCreate(@Body CenterCreate center);
 
 }
