@@ -14,33 +14,34 @@ import java.io.Serializable;
 /**
  * Created by socheatkhauv on 4/9/17.
  */
-public class SidebarWidget extends Panel {
+public class TabbedWidget extends Panel {
 
-    private Sidebar sidebar;
+    private Tabbed tabbed;
 
-    public SidebarWidget(String id, Sidebar sidebar) {
+    public TabbedWidget(String id, Tabbed tabbed) {
         super(id);
-        this.sidebar = sidebar;
+        this.tabbed = tabbed;
     }
 
     @Override
     protected void onInitialize() {
         super.onInitialize();
-        BookmarkablePageLink<Void> link = new BookmarkablePageLink<>("link", this.sidebar.getPageClass(), this.sidebar.getParameters());
+
+        BookmarkablePageLink<Void> link = new BookmarkablePageLink<>("link", this.tabbed.getPageClass(), this.tabbed.getParameters());
         add(link);
 
         WebMarkupContainer icon = new WebMarkupContainer("icon");
         link.add(icon);
-        icon.add(AttributeModifier.replace("class", this.sidebar.getIcon()));
-        if (Strings.isNullOrEmpty(this.sidebar.getIcon())) {
+        icon.add(AttributeModifier.replace("class", this.tabbed.getIcon()));
+        if (Strings.isNullOrEmpty(this.tabbed.getIcon())) {
             icon.setVisible(false);
         }
 
-        Label label = new Label("label", this.sidebar.getLabel());
+        Label label = new Label("text", this.tabbed.getLabel());
         link.add(label);
     }
 
-    public static class Sidebar implements Serializable {
+    public static class Tabbed implements Serializable {
 
         private boolean active;
 
@@ -52,12 +53,16 @@ public class SidebarWidget extends Panel {
 
         private PageParameters parameters;
 
-        public Sidebar(boolean active, String label, String icon, Class<? extends Page> pageClass, PageParameters parameters) {
+        public Tabbed(boolean active, String label, String icon, Class<? extends Page> pageClass, PageParameters parameters) {
             this.active = active;
             this.label = label;
             this.icon = icon;
             this.pageClass = pageClass;
             this.parameters = parameters;
+        }
+
+        public boolean isActive() {
+            return active;
         }
 
         public String getLabel() {
@@ -74,10 +79,6 @@ public class SidebarWidget extends Panel {
 
         public PageParameters getParameters() {
             return parameters;
-        }
-
-        public boolean isActive() {
-            return active;
         }
     }
 }

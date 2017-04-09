@@ -43,6 +43,8 @@ public class MenuWidget extends Panel {
 
     public static class Menu implements Serializable {
 
+        private boolean active;
+
         private String label;
 
         private String icon;
@@ -51,7 +53,8 @@ public class MenuWidget extends Panel {
 
         private PageParameters parameters;
 
-        public Menu(String label, String icon, Class<? extends Page> pageClass, PageParameters parameters) {
+        public Menu(boolean active, String label, String icon, Class<? extends Page> pageClass, PageParameters parameters) {
+            this.active = active;
             this.label = label;
             this.icon = icon;
             this.pageClass = pageClass;
@@ -72,6 +75,10 @@ public class MenuWidget extends Panel {
 
         public String getIcon() {
             return icon;
+        }
+
+        public boolean isActive() {
+            return active;
         }
     }
 

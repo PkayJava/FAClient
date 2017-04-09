@@ -36,7 +36,7 @@ import java.util.List;
  * Created by socheatkhauv on 4/9/17.
  */
 @AuthorizeInstantiation("Super user")
-public class OfficeCreatePage extends MasterPage {
+public class OfficeModifyPage extends MasterPage {
 
     private String externalValue;
     private TextField<String> externalField;
@@ -122,7 +122,7 @@ public class OfficeCreatePage extends MasterPage {
         menus.add(new BreadcrumbWidget.Breadcrumb("Dashboard", "fa fa-dashboard", HomePage.class, new PageParameters()));
         menus.add(new BreadcrumbWidget.Breadcrumb("Organization", null, OrganizationPage.class, new PageParameters()));
         menus.add(new BreadcrumbWidget.Breadcrumb("Manage Offices", null, OfficeBrowsePage.class, new PageParameters()));
-        menus.add(new BreadcrumbWidget.Breadcrumb("New Office", null, OfficeCreatePage.class, new PageParameters()));
+        menus.add(new BreadcrumbWidget.Breadcrumb("New Office", null, OfficeModifyPage.class, new PageParameters()));
         return menus;
     }
 

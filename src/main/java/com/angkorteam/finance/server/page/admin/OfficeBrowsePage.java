@@ -4,6 +4,7 @@ import com.angkorteam.finance.faclient.SystemService;
 import com.angkorteam.finance.faclient.dto.system.Office;
 import com.angkorteam.finance.server.Platform;
 import com.angkorteam.finance.server.layout.MasterPage;
+import com.angkorteam.finance.server.page.HomePage;
 import com.angkorteam.finance.server.provider.OfficeProvider;
 import com.angkorteam.finance.server.widget.BreadcrumbWidget;
 import com.angkorteam.framework.wicket.extensions.markup.html.repeater.data.table.DataTable;
@@ -15,9 +16,9 @@ import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.IColumn;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.LambdaColumn;
-import org.apache.wicket.markup.html.border.Border;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.model.Model;
+import org.apache.wicket.request.mapper.parameter.PageParameters;
 import retrofit2.Call;
 import retrofit2.Response;
 
@@ -34,8 +35,8 @@ public class OfficeBrowsePage extends MasterPage {
     private DataTable<Office, String> dataTable;
 
     @Override
-    protected void doInitialize(Border layout) {
-        add(layout);
+    protected void onInitialize() {
+        super.onInitialize();
 
         SystemService systemService = Platform.getBean(SystemService.class);
         Call<List<Office>> call = systemService.officeList();
@@ -60,10 +61,10 @@ public class OfficeBrowsePage extends MasterPage {
         columns.add(new ActionFilterColumn<>(Model.of("action"), this::actions, this::itemClick));
 
         this.dataTable = new DefaultDataTable<>("table", columns, provider, 100);
-        layout.add(this.dataTable);
+        add(this.dataTable);
 
         BookmarkablePageLink<Void> newOfficeLink = new BookmarkablePageLink<>("newOfficeLink", OfficeCreatePage.class);
-        layout.add(newOfficeLink);
+        add(newOfficeLink);
     }
 
     protected Object officeName(Office office) {
@@ -86,13 +87,12 @@ public class OfficeBrowsePage extends MasterPage {
         }
     }
 
-    @Override
-    protected List<BreadcrumbWidget.Breadcrumb> buildBreadcrumb() {
-        return null;
-    }
-
     private void itemClick(String link, Office object, AjaxRequestTarget target) {
         if ("Edit".equals(link)) {
+            Long officeId = object.getId();
+            PageParameters parameters = new PageParameters();
+            parameters.add("officeId", officeId);
+            setResponsePage(OfficePreviewPage.class, parameters);
         }
     }
 
@@ -100,6 +100,15 @@ public class OfficeBrowsePage extends MasterPage {
         List<ActionItem> actionItems = Lists.newArrayList();
         actionItems.add(new ActionItem("Edit", Model.of("Edit")));
         return actionItems;
+    }
+
+    @Override
+    protected List<BreadcrumbWidget.Breadcrumb> buildBreadcrumb() {
+        List<BreadcrumbWidget.Breadcrumb> menus = new ArrayList<>();
+        menus.add(new BreadcrumbWidget.Breadcrumb("Dashboard", "fa fa-dashboard", HomePage.class, new PageParameters()));
+        menus.add(new BreadcrumbWidget.Breadcrumb("Organization", null, OrganizationPage.class, new PageParameters()));
+        menus.add(new BreadcrumbWidget.Breadcrumb("Manage Offices", null, OfficeBrowsePage.class, new PageParameters()));
+        return menus;
     }
 
 }

@@ -16,7 +16,6 @@ import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.IColumn;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.LambdaColumn;
-import org.apache.wicket.markup.html.border.Border;
 import org.apache.wicket.model.Model;
 import retrofit2.Call;
 import retrofit2.Response;
@@ -34,8 +33,8 @@ public class CenterBrowsePage extends MasterPage {
     private DataTable<Center, String> dataTable;
 
     @Override
-    protected void doInitialize(Border layout) {
-        add(layout);
+    protected void onInitialize() {
+        super.onInitialize();
 
         GroupService groupService = Platform.getBean(GroupService.class);
         Call<CenterListResponse> call = groupService.centerList(0, 100);
@@ -61,7 +60,7 @@ public class CenterBrowsePage extends MasterPage {
         columns.add(new ActionFilterColumn<>(Model.of("action"), this::actions, this::itemClick));
 
         this.dataTable = new DefaultDataTable<>("table", columns, provider, 100);
-        layout.add(this.dataTable);
+        add(this.dataTable);
     }
 
     protected Object groupName(Center center) {
