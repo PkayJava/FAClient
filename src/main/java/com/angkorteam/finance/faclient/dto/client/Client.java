@@ -1,5 +1,7 @@
 package com.angkorteam.finance.faclient.dto.client;
 
+import com.angkorteam.finance.faclient.dto.common.Status;
+import com.angkorteam.finance.faclient.dto.common.Timeline;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
@@ -178,122 +180,6 @@ public class Client implements Serializable {
 
     public void setTimeline(Timeline timeline) {
         this.timeline = timeline;
-    }
-
-    public static class Status implements Serializable {
-
-        private Long id;
-
-        private String code;
-
-        private String value;
-
-        public Long getId() {
-            return id;
-        }
-
-        public void setId(Long id) {
-            this.id = id;
-        }
-
-        public String getCode() {
-            return code;
-        }
-
-        public void setCode(String code) {
-            this.code = code;
-        }
-
-        public String getValue() {
-            return value;
-        }
-
-        public void setValue(String value) {
-            this.value = value;
-        }
-    }
-
-    public static class Timeline implements Serializable {
-
-        private List<Integer> submittedOnDate;
-
-        private String submittedByUsername;
-
-        private String submittedByFirstname;
-
-        private String submittedByLastname;
-
-        private List<Integer> activatedOnDate;
-
-        private String activatedByUsername;
-
-        private String activatedByFirstname;
-
-        private String activatedByLastname;
-
-        public List<Integer> getSubmittedOnDate() {
-            return submittedOnDate;
-        }
-
-        public void setSubmittedOnDate(List<Integer> submittedOnDate) {
-            this.submittedOnDate = submittedOnDate;
-        }
-
-        public String getSubmittedByUsername() {
-            return submittedByUsername;
-        }
-
-        public void setSubmittedByUsername(String submittedByUsername) {
-            this.submittedByUsername = submittedByUsername;
-        }
-
-        public String getSubmittedByFirstname() {
-            return submittedByFirstname;
-        }
-
-        public void setSubmittedByFirstname(String submittedByFirstname) {
-            this.submittedByFirstname = submittedByFirstname;
-        }
-
-        public String getSubmittedByLastname() {
-            return submittedByLastname;
-        }
-
-        public void setSubmittedByLastname(String submittedByLastname) {
-            this.submittedByLastname = submittedByLastname;
-        }
-
-        public List<Integer> getActivatedOnDate() {
-            return activatedOnDate;
-        }
-
-        public void setActivatedOnDate(List<Integer> activatedOnDate) {
-            this.activatedOnDate = activatedOnDate;
-        }
-
-        public String getActivatedByUsername() {
-            return activatedByUsername;
-        }
-
-        public void setActivatedByUsername(String activatedByUsername) {
-            this.activatedByUsername = activatedByUsername;
-        }
-
-        public String getActivatedByFirstname() {
-            return activatedByFirstname;
-        }
-
-        public void setActivatedByFirstname(String activatedByFirstname) {
-            this.activatedByFirstname = activatedByFirstname;
-        }
-
-        public String getActivatedByLastname() {
-            return activatedByLastname;
-        }
-
-        public void setActivatedByLastname(String activatedByLastname) {
-            this.activatedByLastname = activatedByLastname;
-        }
     }
 
     public static class SubStatus implements Serializable {

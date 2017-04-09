@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:wicket="http://wicket.apache.org">
+<head>
+    <meta charset="utf-8"/>
+</head>
+<body>
+<wicket:extend>
+    <wicket:container wicket:id="layout">
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">Client Details</h3>
+            </div>
+            <form wicket:id="form">
+                <div class="box-body">
+                    <!-- Row -->
+                    <div class="form-group col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <label wicket:for="titleField">Title</label>
+                        <input wicket:id="titleField" type="text" class="form-control"/>
+                        <span wicket:id="titleFeedback" class="help-block"/>
+                    </div>
+                    <div class="clearfix"></div>
+                    <!-- Row -->
+                    <div class="form-group col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <label wicket:for="maxFileSizeField">Maximum File Size (MB)</label>
+                        <input wicket:id="maxFileSizeField" type="text" class="form-control"/>
+                        <span wicket:id="maxFileSizeFeedback" class="help-block"/>
+                    </div>
+                    <div class="clearfix"></div>
+                    <!-- Row -->
+                    <div class="form-group col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <label wicket:for="maxFileQuantityField">Maximum File Quantity</label>
+                        <input wicket:id="maxFileQuantityField" type="text" class="form-control"/>
+                        <span wicket:id="maxFileQuantityFeedback" class="help-block"/>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+
+                <div class="box-footer">
+                    <a wicket:id="cancelButton" class="btn btn-default">Cancel</a>
+                    <button wicket:id="requestButton" type="submit" class="btn btn-info pull-right">Request</button>
+                </div>
+
+            </form>
+        </div>
+    </wicket:container>
+</wicket:extend>
+</body>
+</html>

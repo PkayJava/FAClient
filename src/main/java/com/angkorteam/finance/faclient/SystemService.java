@@ -12,6 +12,9 @@ import java.util.Map;
  */
 public interface SystemService {
 
+    @POST("api/v1/authentication")
+    Call<Authentication> authentication(@Query(value = "username", encoded = true) String username, @Query(value = "password", encoded = true) String password);
+
     @GET("api/v1/configurations")
     Call<Map<String, List<Configuration>>> configurationList();
 
@@ -98,5 +101,17 @@ public interface SystemService {
 
     @POST("api/v1/makercheckers/{id}?command=reject")
     Call<MakerCheckerRejectResponse> makerCheckerReject(@Path("id") long commandId);
+
+    @GET("api/v1/offices")
+    Call<List<Office>> officeList();
+
+    @GET("api/v1/offices/{id}")
+    Call<Office> officeRetrieve(@Path("id") long id);
+
+    @POST("api/v1/offices")
+    Call<OfficeCreateResponse> officeCreate(@Body OfficeCreate office);
+
+    @PUT("api/v1/offices/{id}")
+    Call<OfficeUpdateResponse> officeUpdate(@Path("id") long id, @Body OfficeUpdate office);
 
 }

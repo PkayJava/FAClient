@@ -11,24 +11,6 @@ import java.util.List;
  */
 public interface FAClient {
 
-    @POST("api/v1/authentication")
-    Call<Authentication> authentication(@Query(value = "username", encoded = true) String username, @Query(value = "password", encoded = true) String password);
-
-    @GET("api/v1/offices")
-    Call<List<Office>> officeList();
-
-    @GET("api/v1/offices/template")
-    Call<OfficeTemplate> officeTemplate();
-
-    @GET("api/v1/offices/{id}")
-    Call<Office> officeRetrieve(@Path("id") long id);
-
-    @POST("api/v1/offices")
-    Call<OfficeCreateResponse> officeCreate(@Body OfficeCreate office);
-
-    @PUT("api/v1/offices/{id}")
-    Call<OfficeUpdateResponse> officeUpdate(@Path("id") long id, @Body OfficeUpdate office);
-
     @GET("api/v1/caches")
     Call<List<Cache>> cacheList();
 

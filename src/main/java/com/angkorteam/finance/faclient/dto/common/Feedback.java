@@ -1,5 +1,7 @@
 package com.angkorteam.finance.faclient.dto.common;
 
+import com.google.gson.annotations.Expose;
+
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
@@ -9,14 +11,19 @@ import java.util.Map;
  */
 public class Feedback implements Serializable {
 
+    @Expose
     private String developerMessage;
 
+    @Expose
     private String httpStatusCode;
 
+    @Expose
     private String defaultUserMessage;
 
+    @Expose
     private String userMessageGlobalisationCode;
 
+    @Expose
     private List<Error> errors;
 
     public String getDeveloperMessage() {
@@ -61,16 +68,22 @@ public class Feedback implements Serializable {
 
     public static class Error implements Serializable {
 
+        @Expose
         private String developerMessage;
 
+        @Expose
         private String defaultUserMessage;
 
+        @Expose
         private String userMessageGlobalisationCode;
 
+        @Expose
         private String parameterName;
 
+        @Expose
         private String value;
 
+        @Expose
         private List<Map<String, Object>> args;
 
         public String getDeveloperMessage() {

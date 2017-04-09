@@ -1,5 +1,7 @@
 package com.angkorteam.finance.faclient.dto.system;
 
+import com.google.gson.annotations.Expose;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -8,20 +10,28 @@ import java.util.List;
  */
 public class Authentication implements Serializable {
 
+    @Expose
     private String username;
 
+    @Expose
     private Long userId;
 
+    @Expose
     private String base64EncodedAuthenticationKey;
 
+    @Expose
     private boolean authenticated;
 
+    @Expose
     private Long officeId;
 
+    @Expose
     private String officeName;
 
+    @Expose
     private List<Role> roles;
 
+    @Expose
     private List<String> permissions;
 
     public String getUsername() {

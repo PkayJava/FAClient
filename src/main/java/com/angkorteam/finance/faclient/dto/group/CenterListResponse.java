@@ -6,11 +6,11 @@ import java.util.List;
 /**
  * Created by socheatkhauv on 4/8/17.
  */
-public class GroupResponse implements Serializable {
+public class CenterListResponse implements Serializable {
 
     private Long totalFilteredRecords;
 
-    private List<Group> pageItems;
+    private List<Center> pageItems;
 
     public Long getTotalFilteredRecords() {
         return totalFilteredRecords;
@@ -20,11 +20,11 @@ public class GroupResponse implements Serializable {
         this.totalFilteredRecords = totalFilteredRecords;
     }
 
-    public List<Group> getPageItems() {
+    public List<Center> getPageItems() {
         return pageItems;
     }
 
-    public void setPageItems(List<Group> pageItems) {
+    public void setPageItems(List<Center> pageItems) {
         this.pageItems = pageItems;
     }
 }
