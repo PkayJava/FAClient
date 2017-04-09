@@ -16,6 +16,7 @@ import org.apache.wicket.authroles.authorization.strategies.role.annotations.Aut
 import org.apache.wicket.extensions.markup.html.repeater.data.table.IColumn;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.LambdaColumn;
 import org.apache.wicket.markup.html.border.Border;
+import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.model.Model;
 import retrofit2.Call;
 import retrofit2.Response;
@@ -60,6 +61,9 @@ public class OfficeBrowsePage extends MasterPage {
 
         this.dataTable = new DefaultDataTable<>("table", columns, provider, 100);
         layout.add(this.dataTable);
+
+        BookmarkablePageLink<Void> newOfficeLink = new BookmarkablePageLink<>("newOfficeLink", OfficeCreatePage.class);
+        layout.add(newOfficeLink);
     }
 
     protected Object officeName(Office office) {
