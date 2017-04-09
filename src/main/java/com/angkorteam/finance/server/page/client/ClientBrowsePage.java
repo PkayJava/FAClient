@@ -48,7 +48,7 @@ public class ClientBrowsePage extends MasterPage {
     }
 
     @Override
-    protected void initInterface() {
+    protected void initInterface() throws Throwable {
         super.initInterface();
         List<IColumn<Client, String>> columns = new ArrayList<>();
         columns.add(new LambdaColumn<>(Model.of("Name"), this::clientName));

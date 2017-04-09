@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:wicket="http://wicket.apache.org">
+<head>
+    <meta charset="utf-8"/>
+</head>
+<body>
+<wicket:extend>
+
+    <form wicket:id="form">
+
+        <wicket:container wicket:id="fields"/>
+
+        <div class="box-footer">
+            <a wicket:id="cancelButton" class="btn btn-default">Cancel</a>
+            <input type="submit" wicket:id="submitButton" value="Submit" class="btn btn-info pull-right"/>
+        </div>
+
+    </form>
+
+</wicket:extend>
+</body>
+</html>

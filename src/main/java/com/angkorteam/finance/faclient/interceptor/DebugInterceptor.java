@@ -3,6 +3,8 @@ package com.angkorteam.finance.faclient.interceptor;
 import com.angkorteam.finance.faclient.dto.common.Feedback;
 import com.google.gson.Gson;
 import okhttp3.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
@@ -10,6 +12,8 @@ import java.io.IOException;
  * Created by socheatkhauv on 3/29/17.
  */
 public class DebugInterceptor implements Interceptor {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(DebugInterceptor.class);
 
     @Override
     public Response intercept(Chain chain) throws IOException {
@@ -26,8 +30,10 @@ public class DebugInterceptor implements Interceptor {
             cached.request(response.request());
             response = cached.build();
             Feedback feedback = gson.fromJson(string, Feedback.class);
-            for (Feedback.Error error : feedback.getErrors()) {
-                System.out.println(error.getDefaultUserMessage());
+            if (feedback != null && feedback.getErrors() != null && !feedback.getErrors().isEmpty()) {
+                for (Feedback.Error error : feedback.getErrors()) {
+                    LOGGER.info(error.getDeveloperMessage());
+                }
             }
         }
 

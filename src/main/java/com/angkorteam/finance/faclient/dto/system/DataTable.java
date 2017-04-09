@@ -40,7 +40,7 @@ public class DataTable implements Serializable {
         this.columnHeaderData = columnHeaderData;
     }
 
-    public static class ColumnHeaderData {
+    public static class ColumnHeaderData implements Serializable {
 
         private String columnName;
 

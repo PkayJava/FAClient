@@ -42,7 +42,7 @@ public abstract class TabbedPage extends MasterPage {
     }
 
     @Override
-    protected void initInterface() {
+    protected void initInterface() throws Throwable {
         super.initInterface();
         this.initInterface = true;
         List<TabbedWidget.Tabbed> tabbed = buildTabbed();

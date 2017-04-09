@@ -31,7 +31,7 @@ public class DataTableGenericResultSetResponse implements Serializable {
         this.data = data;
     }
 
-    public static class ColumnHeader {
+    public static class ColumnHeader implements Serializable {
 
         private String columnName;
 

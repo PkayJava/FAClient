@@ -124,6 +124,12 @@ public interface SystemService {
     Call<List<DataTable>> dataTableList(@Query("apptable") String appTable);
 
     @GET("api/v1/datatables/{apptable}/{officeId}?genericResultSet=true")
-    Call<DataTableGenericResultSetResponse> dataTableAppTableResultSet(@Path("apptable") String apptable, @Path("officeId") long officeId);
+    Call<DataTableGenericResultSetResponse> dataTableAppTableResultSet(@Path("apptable") String appTable, @Path("officeId") long officeId);
+
+    @POST("api/v1/datatables/{apptable}/{officeId}?genericResultSet=true")
+    Call<Map<String, Object>> dataTableAppTableResultSetCreate(@Path("apptable") String appTable, @Path("officeId") long officeId, @Body Map<String, Object> record);
+
+    @PUT("api/v1/datatables/{apptable}/{officeId}?genericResultSet=true")
+    Call<Map<String, Object>> dataTableAppTableResultSetUpdate(@Path("apptable") String appTable, @Path("officeId") long officeId, @Body Map<String, Object> record);
 
 }

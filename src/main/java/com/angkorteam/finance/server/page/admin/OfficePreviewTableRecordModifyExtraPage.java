@@ -25,7 +25,7 @@ import java.util.List;
  * Created by socheatkhauv on 4/9/17.
  */
 @AuthorizeInstantiation("Super user")
-public class OfficePreviewTableExtraPage extends TabbedPage {
+public class OfficePreviewTableRecordModifyExtraPage extends TabbedPage {
 
     private Long officeId;
 
@@ -105,15 +105,15 @@ public class OfficePreviewTableExtraPage extends TabbedPage {
         menus.add(new BreadcrumbWidget.Breadcrumb("Dashboard", "fa fa-dashboard", HomePage.class, new PageParameters()));
         menus.add(new BreadcrumbWidget.Breadcrumb("Organization", null, OrganizationPage.class, new PageParameters()));
         menus.add(new BreadcrumbWidget.Breadcrumb("Manage Offices", null, OfficeBrowsePage.class, new PageParameters()));
-        menus.add(new BreadcrumbWidget.Breadcrumb(this.office.getName(), null, OfficePreviewTableExtraPage.class, getPageParameters()));
+        menus.add(new BreadcrumbWidget.Breadcrumb(this.office.getName(), null, OfficePreviewTableRecordModifyExtraPage.class, getPageParameters()));
         return menus;
     }
 
     @Override
     protected List<TabbedWidget.Tabbed> buildTabbed() {
         List<TabbedWidget.Tabbed> tabbed = new ArrayList<>();
-        tabbed.add(new TabbedWidget.Tabbed(true, "General", null, OfficePreviewTableExtraPage.class, getPageParameters()));
-        tabbed.add(new TabbedWidget.Tabbed(false, "Document", null, OfficePreviewTableExtraPage.class, getPageParameters()));
+        tabbed.add(new TabbedWidget.Tabbed(true, "General", null, OfficePreviewTableRecordModifyExtraPage.class, getPageParameters()));
+        tabbed.add(new TabbedWidget.Tabbed(false, "Document", null, OfficePreviewTableRecordModifyExtraPage.class, getPageParameters()));
         return tabbed;
     }
 }

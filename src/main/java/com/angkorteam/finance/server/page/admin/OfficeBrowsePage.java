@@ -22,7 +22,6 @@ import org.apache.wicket.request.mapper.parameter.PageParameters;
 import retrofit2.Call;
 import retrofit2.Response;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,14 +36,10 @@ public class OfficeBrowsePage extends MasterPage {
     private OfficeProvider provider;
 
     @Override
-    protected void initData(PageParameters parameters) {
+    protected void initData(PageParameters parameters) throws Throwable {
         SystemService systemService = Platform.getBean(SystemService.class);
         Call<List<Office>> call = systemService.officeList();
-        Response<List<Office>> response = null;
-        try {
-            response = call.execute();
-        } catch (IOException e) {
-        }
+        Response<List<Office>> response = call.execute();
 
         if (response.body() != null) {
             this.provider = new OfficeProvider(response.body());

@@ -67,7 +67,7 @@ public abstract class MasterPage extends AdminLTEPage {
     protected void initData(PageParameters parameters) throws Throwable {
     }
 
-    protected void initInterface() {
+    protected void initInterface() throws Throwable {
     }
 
     @Override
@@ -181,7 +181,11 @@ public abstract class MasterPage extends AdminLTEPage {
             this.breadcrumbContainer.setVisible(false);
         }
 
-        initInterface();
+        try {
+            initInterface();
+        } catch (Throwable throwable) {
+            throw new WicketRuntimeException(throwable);
+        }
 
     }
 

@@ -10,19 +10,22 @@ import com.angkorteam.finance.server.widget.BreadcrumbWidget;
 import com.angkorteam.finance.server.widget.DisplayFieldWidget;
 import com.angkorteam.finance.server.widget.TabbedWidget;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
+import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.repeater.RepeatingView;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import retrofit2.Call;
 import retrofit2.Response;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by socheatkhauv on 4/9/17.
  */
 @AuthorizeInstantiation("Super user")
-public class OfficePreviewSingleExtraPage extends TabbedPage {
+public class OfficePreviewSinglePreviewExtraPage extends TabbedPage {
 
     private Long officeId;
 
@@ -33,6 +36,11 @@ public class OfficePreviewSingleExtraPage extends TabbedPage {
     private List<DataTable> dataTables;
 
     private DataTableGenericResultSetResponse body;
+
+    private Map<String, Object> domainValue;
+
+    private BookmarkablePageLink<Void> cancelButton;
+    private BookmarkablePageLink<Void> editButton;
 
     @Override
     protected void initData(PageParameters parameters) throws Throwable {
@@ -53,44 +61,56 @@ public class OfficePreviewSingleExtraPage extends TabbedPage {
             Response<List<DataTable>> response = call.execute();
             this.dataTables = response.body();
         }
+        this.domainValue = new HashMap<>();
+
+        if (body.getData() != null && !body.getData().isEmpty()) {
+            DataTableGenericResultSetResponse.Record record = body.getData().get(0);
+            for (int i = 0; i < record.getRow().size(); i++) {
+                String object = (String) record.getRow().get(i);
+                DataTableGenericResultSetResponse.ColumnHeader header = body.getColumnHeaders().get(i);
+                String columnName = header.getColumnName();
+                if ("CODELOOKUP".equals(header.getColumnDisplayType())) {
+                    columnName = columnName.substring(header.getColumnCode().length() + 4);
+                    for (DataTableGenericResultSetResponse.ColumnValue columnValue : header.getColumnValues()) {
+                        if (String.valueOf(columnValue.getId()).equals(object)) {
+                            object = columnValue.getValue();
+                            break;
+                        }
+                    }
+                }
+                this.domainValue.put(columnName, object);
+            }
+        } else {
+            for (int i = 0; i < body.getColumnHeaders().size(); i++) {
+                DataTableGenericResultSetResponse.ColumnHeader header = body.getColumnHeaders().get(i);
+                String columnName = header.getColumnName();
+                if ("CODELOOKUP".equals(header.getColumnDisplayType())) {
+                    columnName = columnName.substring(header.getColumnCode().length() + 4);
+                }
+                this.domainValue.put(columnName, null);
+            }
+        }
+        this.domainValue.remove("office_id");
     }
 
     @Override
-    protected void initInterface() {
+    protected void initInterface() throws Throwable {
         super.initInterface();
 
         RepeatingView fields = new RepeatingView("fields");
         add(fields);
-        if (body.getData() != null && !body.getData().isEmpty()) {
-            DataTableGenericResultSetResponse.Record record = body.getData().get(0);
-            for (int i = 0; i < record.getRow().size(); i++) {
-                String newChildId = fields.newChildId();
-                Object object = record.getRow().get(i);
-                DataTableGenericResultSetResponse.ColumnHeader header = body.getColumnHeaders().get(i);
-                String columnName = header.getColumnName();
-                if ("CODELOOKUP".equals(header.getColumnDisplayType())) {
-                    columnName = columnName.substring(header.getColumnCode().length() + 4);
-                }
-                if (object == null) {
-                    DisplayFieldWidget displayFieldWidget = new DisplayFieldWidget(newChildId, columnName, "");
-                    fields.add(displayFieldWidget);
-                } else {
-                    DisplayFieldWidget displayFieldWidget = new DisplayFieldWidget(newChildId, columnName, object.toString());
-                    fields.add(displayFieldWidget);
-                }
-            }
-        } else {
-            for (int i = 0; i < body.getColumnHeaders().size(); i++) {
-                String newChildId = fields.newChildId();
-                DataTableGenericResultSetResponse.ColumnHeader header = body.getColumnHeaders().get(i);
-                String columnName = header.getColumnName();
-                if ("CODELOOKUP".equals(header.getColumnDisplayType())) {
-                    columnName = columnName.substring(header.getColumnCode().length() + 4);
-                }
-                DisplayFieldWidget displayFieldWidget = new DisplayFieldWidget(newChildId, columnName, "");
-                fields.add(displayFieldWidget);
-            }
+
+        for (Map.Entry<String, Object> item : this.domainValue.entrySet()) {
+            String newChildId = fields.newChildId();
+            DisplayFieldWidget displayFieldWidget = new DisplayFieldWidget(newChildId, item.getKey(), item.getValue() == null ? null : item.getValue().toString());
+            fields.add(displayFieldWidget);
         }
+
+        this.cancelButton = new BookmarkablePageLink<>("cancelButton", OfficeBrowsePage.class);
+        add(this.cancelButton);
+
+        this.editButton = new BookmarkablePageLink<>("editButton", OfficePreviewSingleModifyExtraPage.class, getPageParameters());
+        add(this.editButton);
     }
 
     @Override
@@ -104,7 +124,7 @@ public class OfficePreviewSingleExtraPage extends TabbedPage {
         parameters.add("officeId", this.officeId);
         parameters.add("appTable", this.appTable);
         parameters.add("officeName", this.officeName);
-        menus.add(new BreadcrumbWidget.Breadcrumb(this.appTable, null, OfficePreviewSingleExtraPage.class, parameters));
+        menus.add(new BreadcrumbWidget.Breadcrumb(this.appTable, null, OfficePreviewSinglePreviewExtraPage.class, parameters));
         return menus;
     }
 
@@ -126,7 +146,7 @@ public class OfficePreviewSingleExtraPage extends TabbedPage {
                 parameters.add("officeId", this.officeId);
                 parameters.add("appTable", dataTable.getRegisteredTableName());
                 parameters.add("officeName", this.officeName);
-                tabbed.add(new TabbedWidget.Tabbed(this.appTable.equals(dataTable.getRegisteredTableName()), dataTable.getRegisteredTableName(), null, OfficePreviewSingleExtraPage.class, parameters));
+                tabbed.add(new TabbedWidget.Tabbed(this.appTable.equals(dataTable.getRegisteredTableName()), dataTable.getRegisteredTableName(), null, OfficePreviewSinglePreviewExtraPage.class, parameters));
             }
         }
         return tabbed;

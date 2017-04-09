@@ -50,7 +50,7 @@ public class GroupBrowsePage extends MasterPage {
     }
 
     @Override
-    protected void initInterface() {
+    protected void initInterface() throws Throwable {
         super.initInterface();
         List<IColumn<Group, String>> columns = new ArrayList<>();
         columns.add(new LambdaColumn<>(Model.of("Name"), this::groupName));
