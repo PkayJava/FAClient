@@ -45,7 +45,8 @@ public class OfficePreviewPage extends TabbedPage {
     private Office office;
 
     @Override
-    protected void onInitialize() {
+    protected void initData(PageParameters parameters) {
+        super.initData(parameters);
         this.officeId = getPageParameters().get("officeId").toLong();
 
         SystemService systemService = Platform.getBean(SystemService.class);
@@ -57,8 +58,10 @@ public class OfficePreviewPage extends TabbedPage {
             error(e.getMessage());
         }
         this.office = response.body();
+    }
 
-        super.onInitialize();
+    @Override
+    protected void initInterface() {
 
         this.form = new WebMarkupContainer("form");
         add(this.form);
@@ -79,7 +82,6 @@ public class OfficePreviewPage extends TabbedPage {
         this.openedOnValue = DateFormatUtils.format(new org.joda.time.LocalDate(this.office.getOpeningDate().get(0), this.office.getOpeningDate().get(1), this.office.getOpeningDate().get(2)).toDate(), "yyyy-MM-dd");
         this.openedOnField = new Label("openedOnField", new PropertyModel<>(this, "openedOnValue"));
         this.form.add(this.openedOnField);
-
     }
 
     @Override

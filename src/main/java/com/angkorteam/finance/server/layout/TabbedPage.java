@@ -2,6 +2,7 @@ package com.angkorteam.finance.server.layout;
 
 import com.angkorteam.finance.server.widget.TabbedWidget;
 import org.apache.wicket.AttributeModifier;
+import org.apache.wicket.WicketRuntimeException;
 import org.apache.wicket.markup.repeater.RepeatingView;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
@@ -20,6 +21,9 @@ public abstract class TabbedPage extends MasterPage {
 
     private RepeatingView tabbedItemWidget;
 
+    private boolean initInterface = false;
+    private boolean initData = false;
+
     public TabbedPage() {
     }
 
@@ -32,9 +36,15 @@ public abstract class TabbedPage extends MasterPage {
     }
 
     @Override
-    protected void onInitialize() {
-        super.onInitialize();
+    protected void initData(PageParameters parameters) {
+        super.initData(parameters);
+        this.initData = true;
+    }
 
+    @Override
+    protected void initInterface() {
+        super.initInterface();
+        this.initInterface = true;
         List<TabbedWidget.Tabbed> tabbed = buildTabbed();
 
         this.tabbedItemWidget = new RepeatingView("tabbedItemWidget");
@@ -49,6 +59,17 @@ public abstract class TabbedPage extends MasterPage {
             this.tabbedItemWidget.add(tabbedWidget);
         }
 
+    }
+
+    @Override
+    protected void onBeforeRender() {
+        super.onBeforeRender();
+        if (!this.initInterface) {
+            throw new WicketRuntimeException("TabbedPage.initInterface() is not called");
+        }
+        if (!this.initData) {
+            throw new WicketRuntimeException("TabbedPage.initData(PageParameters) is not called");
+        }
     }
 
     protected List<TabbedWidget.Tabbed> buildTabbed() {

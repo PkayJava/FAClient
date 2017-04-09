@@ -59,8 +59,12 @@ public class OfficeModifyPage extends MasterPage {
     private BookmarkablePageLink<Void> cancelButton;
 
     @Override
-    protected void onInitialize() {
-        super.onInitialize();
+    protected void initData(PageParameters parameters) {
+
+    }
+
+    @Override
+    protected void initInterface() {
 
         SystemService systemService = Platform.getBean(SystemService.class);
         Call<List<Office>> call = systemService.officeList();

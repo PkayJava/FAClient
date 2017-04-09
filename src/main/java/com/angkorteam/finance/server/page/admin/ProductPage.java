@@ -7,8 +7,5 @@ import com.angkorteam.finance.server.layout.MasterPage;
  */
 public class ProductPage extends MasterPage {
 
-    @Override
-    protected void onInitialize() {
-        super.onInitialize();
-    }
+
 }

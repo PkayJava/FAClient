@@ -58,10 +58,10 @@ public class OfficeCreatePage extends MasterPage {
     private Button createButton;
     private BookmarkablePageLink<Void> cancelButton;
 
-    @Override
-    protected void onInitialize() {
-        super.onInitialize();
+    private List<Office> offices;
 
+    @Override
+    protected void initData(PageParameters parameters) {
         SystemService systemService = Platform.getBean(SystemService.class);
         Call<List<Office>> call = systemService.officeList();
         Response<List<Office>> response = null;
@@ -69,6 +69,11 @@ public class OfficeCreatePage extends MasterPage {
             response = call.execute();
         } catch (IOException e) {
         }
+        this.offices = response.body();
+    }
+
+    @Override
+    protected void initInterface() {
 
         this.form = new Form<>("form");
         add(this.form);
@@ -87,13 +92,13 @@ public class OfficeCreatePage extends MasterPage {
         this.officeFeedback = new TextFeedbackPanel("officeFeedback", this.officeField);
         this.form.add(this.officeFeedback);
 
-        for (Office office : response.body()) {
+        for (Office office : this.offices) {
             if (office.getId() == 1) {
                 this.parentValue = new Option(String.valueOf(office.getId()), office.getName());
                 break;
             }
         }
-        this.parentField = new Select2SingleChoice<>("parentField", new PropertyModel<>(this, "parentValue"), new OfficeChoiceProvider(response.body()));
+        this.parentField = new Select2SingleChoice<>("parentField", new PropertyModel<>(this, "parentValue"), new OfficeChoiceProvider(this.offices));
         this.parentField.setLabel(Model.of("Parent Office"));
         this.parentField.setRequired(true);
         this.form.add(this.parentField);

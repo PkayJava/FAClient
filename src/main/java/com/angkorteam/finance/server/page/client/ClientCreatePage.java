@@ -7,10 +7,5 @@ import com.angkorteam.finance.server.layout.MasterPage;
  */
 public class ClientCreatePage extends MasterPage {
 
-    @Override
-    protected void onInitialize() {
-        super.onInitialize();
-
-    }
 
 }

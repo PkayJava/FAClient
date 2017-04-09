@@ -34,10 +34,10 @@ public class OfficeBrowsePage extends MasterPage {
 
     private DataTable<Office, String> dataTable;
 
-    @Override
-    protected void onInitialize() {
-        super.onInitialize();
+    private OfficeProvider provider;
 
+    @Override
+    protected void initData(PageParameters parameters) {
         SystemService systemService = Platform.getBean(SystemService.class);
         Call<List<Office>> call = systemService.officeList();
         Response<List<Office>> response = null;
@@ -46,13 +46,15 @@ public class OfficeBrowsePage extends MasterPage {
         } catch (IOException e) {
         }
 
-        OfficeProvider provider = null;
         if (response.body() != null) {
-            provider = new OfficeProvider(response.body());
+            this.provider = new OfficeProvider(response.body());
         } else {
-            provider = new OfficeProvider(new ArrayList<>());
+            this.provider = new OfficeProvider(new ArrayList<>());
         }
+    }
 
+    @Override
+    protected void initInterface() {
         List<IColumn<Office, String>> columns = new ArrayList<>();
         columns.add(new LambdaColumn<>(Model.of("Office Name"), this::officeName));
         columns.add(new LambdaColumn<>(Model.of("External ID"), this::officeExternalId));

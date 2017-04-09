@@ -15,9 +15,7 @@ import java.util.List;
 public class OrganizationPage extends MasterPage {
 
     @Override
-    protected void onInitialize() {
-        super.onInitialize();
-
+    protected void initInterface() {
         BookmarkablePageLink<Void> officeBrowsePage = new BookmarkablePageLink<>("officeBrowsePage", OfficeBrowsePage.class);
         add(officeBrowsePage);
     }

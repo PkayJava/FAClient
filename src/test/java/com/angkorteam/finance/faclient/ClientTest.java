@@ -1,11 +1,22 @@
 package com.angkorteam.finance.faclient;
 
-import com.angkorteam.finance.faclient.dto.*;
+import com.angkorteam.finance.faclient.dto.client.Client;
+import com.angkorteam.finance.faclient.dto.client.ClientCreate;
+import com.angkorteam.finance.faclient.dto.client.ClientCreateResponse;
+import com.angkorteam.finance.faclient.dto.client.ClientListResponse;
+import com.angkorteam.finance.faclient.dto.common.Feedback;
+import com.angkorteam.finance.faclient.dto.group.CenterCreate;
+import com.angkorteam.finance.faclient.dto.group.CenterCreateResponse;
+import com.angkorteam.finance.faclient.dto.system.Authentication;
+import com.angkorteam.finance.faclient.dto.system.Code;
+import com.angkorteam.finance.faclient.dto.system.CodeValue;
+import com.angkorteam.finance.faclient.dto.system.CodeValueCreate;
 import com.angkorteam.finance.faclient.gson.AppTable;
 import com.angkorteam.finance.faclient.gson.AppTableTypeAdapter;
 import com.angkorteam.finance.faclient.gson.AppType;
 import com.angkorteam.finance.faclient.gson.AppTypeTypeAdapter;
 import com.angkorteam.finance.faclient.interceptor.AuthenticationInterceptor;
+import com.angkorteam.finance.faclient.interceptor.DebugInterceptor;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import okhttp3.OkHttpClient;
@@ -19,6 +30,7 @@ import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -37,9 +49,15 @@ public class ClientTest {
 
     public static void main(String[] args) throws IOException {
 
+        String string = "{\"developerMessage\":\"Invalid authentication details were passed in api request.\",\"httpStatusCode\":\"401\",\"defaultUserMessage\":\"Unauthenticated. Please login.\",\"userMessageGlobalisationCode\":\"error.msg.not.authenticated\",\"errors\":[]}";
+        Gson gson = new Gson();
+        Feedback feedback = gson.fromJson(string, Feedback.class);
+        System.out.println(feedback.getDefaultUserMessage());
+
         AuthenticationInterceptor interceptor = new AuthenticationInterceptor("default");
         OkHttpClient client = new OkHttpClient.Builder()
                 .addInterceptor(interceptor)
+                .addInterceptor(new DebugInterceptor())
                 .build();
         GsonBuilder gsonBuilder = new GsonBuilder();
         gsonBuilder.setPrettyPrinting();
@@ -53,16 +71,27 @@ public class ClientTest {
         builder.baseUrl("http://192.168.0.107:8080/fineract-provider/");
         builder.client(client);
         Retrofit retrofit = builder.build();
-        FAClient faclient = retrofit.create(FAClient.class);
-        Call<Authentication> call = faclient.authentication("mifos", "password");
+        GroupService groupService = retrofit.create(GroupService.class);
+        Call<Authentication> call = groupService.authentication("mifos", "password");
         call.execute();
 
-        SystemService systemService = retrofit.create(SystemService.class);
-        ClientService clientService = retrofit.create(ClientService.class);
 
-        step03PrintClient(clientService);
+        // Step 01 Create Office
+    }
 
-        System.out.println("FINISHED");
+    public static CenterCreateResponse generateCenter(GroupService groupService) throws IOException {
+        CenterCreate center = new CenterCreate();
+        center.setName(RandomStringUtils.randomAlphabetic(10));
+        center.setOfficeId(1l);
+        center.setSubmittedOnDate(dateFormat.format(new Date()));
+        center.setDateFormat(format);
+        center.setStaffId(1l);
+        center.setActive(true);
+        center.setActivationDate(dateFormat.format(new Date()));
+        center.setExternalId(RandomStringUtils.randomAlphanumeric(10));
+        center.setLocale("en");
+        center.setGroupMembers(Arrays.asList(1l));
+        return groupService.centerCreate(center).execute().body();
     }
 
     public static void step02GenerateClient(ClientService clientService) throws IOException {
@@ -88,15 +117,15 @@ public class ClientTest {
     }
 
     public static void step03PrintClient(ClientService clientService) throws IOException {
-        Call<ClientListResponse> call = clientService.clientList();
+        Call<ClientListResponse> call = clientService.clientList(0, 100);
         Response<ClientListResponse> response = call.execute();
         ClientListResponse clientListResponse = response.body();
         if (clientListResponse != null && clientListResponse.getPageItems() != null && !clientListResponse.getPageItems().isEmpty()) {
             for (Client client : clientListResponse.getPageItems()) {
                 System.out.println(client.getFirstname());
+                System.out.println(client.getId());
             }
         }
-
     }
 
 

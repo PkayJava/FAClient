@@ -17,6 +17,7 @@ import org.apache.wicket.authroles.authorization.strategies.role.annotations.Aut
 import org.apache.wicket.extensions.markup.html.repeater.data.table.IColumn;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.LambdaColumn;
 import org.apache.wicket.model.Model;
+import org.apache.wicket.request.mapper.parameter.PageParameters;
 import retrofit2.Call;
 import retrofit2.Response;
 
@@ -32,10 +33,10 @@ public class CenterBrowsePage extends MasterPage {
 
     private DataTable<Center, String> dataTable;
 
-    @Override
-    protected void onInitialize() {
-        super.onInitialize();
+    private CenterProvider provider;
 
+    @Override
+    protected void initData(PageParameters parameters) {
         GroupService groupService = Platform.getBean(GroupService.class);
         Call<CenterListResponse> call = groupService.centerList(0, 100);
         Response<CenterListResponse> response = null;
@@ -44,13 +45,16 @@ public class CenterBrowsePage extends MasterPage {
         } catch (IOException e) {
         }
 
-        CenterProvider provider = null;
         if (response.body() != null) {
-            provider = new CenterProvider(response.body().getPageItems());
+            this.provider = new CenterProvider(response.body().getPageItems());
         } else {
-            provider = new CenterProvider(new ArrayList<>());
+            this.provider = new CenterProvider(new ArrayList<>());
         }
+    }
 
+    @Override
+    protected void initInterface() {
+        super.initInterface();
         List<IColumn<Center, String>> columns = new ArrayList<>();
         columns.add(new LambdaColumn<>(Model.of("Name"), this::groupName));
         columns.add(new LambdaColumn<>(Model.of("Account#"), this::groupAccountNo));
