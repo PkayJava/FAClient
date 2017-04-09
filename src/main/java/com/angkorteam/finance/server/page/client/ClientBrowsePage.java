@@ -21,7 +21,6 @@ import org.apache.wicket.request.mapper.parameter.PageParameters;
 import retrofit2.Call;
 import retrofit2.Response;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,16 +35,11 @@ public class ClientBrowsePage extends MasterPage {
     private ClientProvider provider;
 
     @Override
-    protected void initData(PageParameters parameters) {
+    protected void initData(PageParameters parameters) throws Throwable {
         super.initData(parameters);
         ClientService clientService = Platform.getBean(ClientService.class);
         Call<ClientListResponse> call = clientService.clientList(0, 5);
-        Response<ClientListResponse> response = null;
-        try {
-            response = call.execute();
-        } catch (IOException e) {
-        }
-
+        Response<ClientListResponse> response = call.execute();
         if (response.body() != null) {
             provider = new ClientProvider(response.body().getPageItems());
         } else {

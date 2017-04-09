@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:wicket="http://wicket.apache.org">
+<head>
+
+</head>
+<body>
+
+<br/><br/>
+<div class="row">
+    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-xs-3"></div>
+    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6">
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">Upload</h3>
+            </div>
+            <form wicket:id="form">
+                <div class="box-body">
+                    <!-- Row -->
+                    <div class="form-group col-xl-7 col-lg-7 col-md-7 col-sm-7 col-xs-7">
+                        <label>Title</label>
+                        <span wicket:id="titleLabel" class="form-control" disabled="true"/>
+                    </div>
+                    <div class="form-group col-xl-5 col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                        <label>Maximum File Size (MB)</label>
+                        <span wicket:id="maxFileSizeLabel" class="form-control" disabled="true"/>
+                    </div>
+                    <div class="clearfix"></div>
+                    <!-- Row -->
+                    <div class="form-group col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <label wicket:for="fileField">File</label>
+                        <input wicket:id="fileField" type="file"/>
+                        <span wicket:id="fileFeedback" class="help-block"/>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+
+                <div class="box-footer">
+                    <a wicket:id="cancelButton" class="btn btn-default">Cancel</a>
+                    <button wicket:id="uploadButton" type="submit" class="btn btn-info pull-right">Upload</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-xs-3"></div>
+</div>
+
+</body>
+</html>

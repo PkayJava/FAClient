@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+    <entry key="UploadFileValidator.quantity">This request is not available</entry>
+    <entry key="UploadFileValidator.size">File size is big</entry>
+</properties>

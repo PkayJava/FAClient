@@ -114,4 +114,16 @@ public interface SystemService {
     @PUT("api/v1/offices/{id}")
     Call<OfficeUpdateResponse> officeUpdate(@Path("id") long id, @Body OfficeUpdate office);
 
+    @GET("api/v1/datatables/{registeredTableName}")
+    Call<DataTable> dataTableRetrieve(@Path("registeredTableName") String registeredTableName);
+
+    @GET("api/v1/datatables")
+    Call<List<DataTable>> dataTableList();
+
+    @GET("api/v1/datatables")
+    Call<List<DataTable>> dataTableList(@Query("apptable") String appTable);
+
+    @GET("api/v1/datatables/{apptable}/{officeId}?genericResultSet=true")
+    Call<DataTableGenericResultSetResponse> dataTableAppTableResultSet(@Path("apptable") String apptable, @Path("officeId") long officeId);
+
 }

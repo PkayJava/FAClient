@@ -17,12 +17,6 @@ public interface FAClient {
     @PUT("api/v1/caches")
     Call<CacheSwitchResponse> cacheSwitch(@Body CacheSwitch cache);
 
-    @GET("api/v1/datatables")
-    Call<List<DataTable>> dataTableList();
-
-    @GET("api/v1/datatables/{registeredTableName}")
-    Call<DataTable> dataTableRetrieve(@Path("registeredTableName") String registeredTableName);
-
     @POST("api/v1/datatables")
     Call<DataTableCreateResponse> dataTableCreate(@Body DataTableCreate dataTable);
 }

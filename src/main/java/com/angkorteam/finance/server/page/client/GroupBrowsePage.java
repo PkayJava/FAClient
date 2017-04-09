@@ -21,7 +21,6 @@ import org.apache.wicket.request.mapper.parameter.PageParameters;
 import retrofit2.Call;
 import retrofit2.Response;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,17 +35,12 @@ public class GroupBrowsePage extends MasterPage {
     private GroupProvider provider = null;
 
     @Override
-    protected void initData(PageParameters parameters) {
+    protected void initData(PageParameters parameters) throws Throwable {
         super.initData(parameters);
 
         GroupService groupService = Platform.getBean(GroupService.class);
         Call<GroupListResponse> call = groupService.groupList(0, 100);
-        Response<GroupListResponse> response = null;
-        try {
-            response = call.execute();
-        } catch (IOException e) {
-        }
-
+        Response<GroupListResponse> response = call.execute();
 
         if (response.body() != null) {
             provider = new GroupProvider(response.body().getPageItems());

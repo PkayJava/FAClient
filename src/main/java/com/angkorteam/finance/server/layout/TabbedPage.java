@@ -36,7 +36,7 @@ public abstract class TabbedPage extends MasterPage {
     }
 
     @Override
-    protected void initData(PageParameters parameters) {
+    protected void initData(PageParameters parameters) throws Throwable {
         super.initData(parameters);
         this.initData = true;
     }
@@ -65,10 +65,10 @@ public abstract class TabbedPage extends MasterPage {
     protected void onBeforeRender() {
         super.onBeforeRender();
         if (!this.initInterface) {
-            throw new WicketRuntimeException("TabbedPage.initInterface() is not called");
+            throw new WicketRuntimeException(this.getClass().getName() + " forget super.initInterface() is not called");
         }
         if (!this.initData) {
-            throw new WicketRuntimeException("TabbedPage.initData(PageParameters) is not called");
+            throw new WicketRuntimeException(this.getClass().getName() + " forget super.initData(PageParameters) is not called");
         }
     }
 

@@ -8,39 +8,30 @@ import java.util.List;
 /**
  * Created by socheatkhauv on 3/30/17.
  */
-public class DataTable implements Serializable {
+public class DataTableGenericResultSetResponse implements Serializable {
 
-    private String applicationTableName;
 
-    private String registeredTableName;
+    private List<ColumnHeader> columnHeaders;
 
-    private List<ColumnHeaderData> columnHeaderData;
+    private List<Record> data;
 
-    public String getApplicationTableName() {
-        return applicationTableName;
+    public List<ColumnHeader> getColumnHeaders() {
+        return columnHeaders;
     }
 
-    public void setApplicationTableName(String applicationTableName) {
-        this.applicationTableName = applicationTableName;
+    public void setColumnHeaders(List<ColumnHeader> columnHeaders) {
+        this.columnHeaders = columnHeaders;
     }
 
-    public String getRegisteredTableName() {
-        return registeredTableName;
+    public List<Record> getData() {
+        return data;
     }
 
-    public void setRegisteredTableName(String registeredTableName) {
-        this.registeredTableName = registeredTableName;
+    public void setData(List<Record> data) {
+        this.data = data;
     }
 
-    public List<ColumnHeaderData> getColumnHeaderData() {
-        return columnHeaderData;
-    }
-
-    public void setColumnHeaderData(List<ColumnHeaderData> columnHeaderData) {
-        this.columnHeaderData = columnHeaderData;
-    }
-
-    public static class ColumnHeaderData {
+    public static class ColumnHeader {
 
         private String columnName;
 
@@ -156,5 +147,19 @@ public class DataTable implements Serializable {
         public void setScore(Long score) {
             this.score = score;
         }
+    }
+
+    public static class Record implements Serializable {
+
+        private List<Object> row;
+
+        public List<Object> getRow() {
+            return row;
+        }
+
+        public void setRow(List<Object> row) {
+            this.row = row;
+        }
+
     }
 }

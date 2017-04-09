@@ -15,6 +15,7 @@ import com.angkorteam.finance.server.widget.SidebarWidget;
 import com.angkorteam.framework.wicket.AdminLTEPage;
 import org.apache.commons.lang3.time.DateFormatUtils;
 import org.apache.wicket.AttributeModifier;
+import org.apache.wicket.WicketRuntimeException;
 import org.apache.wicket.feedback.FeedbackMessage;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
@@ -63,7 +64,7 @@ public abstract class MasterPage extends AdminLTEPage {
         super(parameters);
     }
 
-    protected void initData(PageParameters parameters) {
+    protected void initData(PageParameters parameters) throws Throwable {
     }
 
     protected void initInterface() {
@@ -73,7 +74,11 @@ public abstract class MasterPage extends AdminLTEPage {
     protected final void onInitialize() {
         super.onInitialize();
 
-        initData(getPageParameters());
+        try {
+            initData(getPageParameters());
+        } catch (Throwable throwable) {
+            throw new WicketRuntimeException(throwable);
+        }
 
         List<MenuWidget.Menu> clientMenu = buildClientMenu();
         List<MenuWidget.Menu> adminMenu = buildAdminMenu();
